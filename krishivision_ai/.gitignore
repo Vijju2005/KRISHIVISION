@@ -1,0 +1,17 @@
+# Flutter
+**/build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+
+# Backend
+backend/__pycache__/
+backend/**/__pycache__/
+backend/krishivision.db
+backend/app/uploads/*
+!backend/app/uploads/.gitkeep
+backend/server.log
+backend/.venv/
+backend/.env
+

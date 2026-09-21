@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: krishivision_db
+    restart: always
+    environment:
+      POSTGRES_USER: krishi_user
+      POSTGRES_PASSWORD: krishi_password
+      POSTGRES_DB: krishivision
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build: ./krishivision_ai/backend
+    container_name: krishivision_backend
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://krishi_user:krishi_password@db:5432/krishivision
+      - JWT_SECRET_KEY=supersecretjwtsigningkeychangeinprod
+    depends_on:
+      - db
+    volumes:
+      - ./krishivision_ai/backend/app/uploads:/app/app/uploads
+
+volumes:
+  pgdata:
